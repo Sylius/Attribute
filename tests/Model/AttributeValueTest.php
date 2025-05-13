@@ -78,7 +78,7 @@ class AttributeValueTest extends TestCase
         self::assertSame('en', $this->attributeValue->getLocaleCode());
     }
 
-    public function testShouldHasNoValueByDefalut(): void
+    public function testShouldHasNoValueByDefault(): void
     {
         self::assertNull($this->attributeValue->getValue());
     }

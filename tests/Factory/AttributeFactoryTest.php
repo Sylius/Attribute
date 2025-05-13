@@ -30,7 +30,7 @@ class AttributeFactoryTest extends TestCase
     /** @var MockObject&ServiceRegistryInterface */
     private ServiceRegistryInterface $attributeTypesRegistry;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->factory = $this->createMock(FactoryInterface::class);
