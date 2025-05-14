@@ -30,25 +30,24 @@ class AttributeFactoryTest extends TestCase
     /** @var MockObject&ServiceRegistryInterface */
     private ServiceRegistryInterface $attributeTypesRegistry;
 
+    private AttributeFactory $attributeFactory;
+
     protected function setUp(): void
     {
         parent::setUp();
         $this->factory = $this->createMock(FactoryInterface::class);
         $this->attributeTypesRegistry = $this->createMock(ServiceRegistryInterface::class);
+        $this->attributeFactory = new AttributeFactory($this->factory, $this->attributeTypesRegistry);
     }
 
     public function testCanBeInstantiated(): void
     {
-        $attributeFactory = new AttributeFactory($this->factory, $this->attributeTypesRegistry);
-
-        self::assertInstanceOf(AttributeFactory::class, $attributeFactory);
+        self::assertInstanceOf(AttributeFactory::class, $this->attributeFactory);
     }
 
     public function testShouldImplementAttributeFactoryInterface(): void
     {
-        $attributeFactory = new AttributeFactory($this->factory, $this->attributeTypesRegistry);
-
-        self::assertInstanceOf(AttributeFactoryInterface::class, $attributeFactory);
+        self::assertInstanceOf(AttributeFactoryInterface::class, $this->attributeFactory);
     }
 
     public function testCanCreatesUntypedAttribute(): void
@@ -58,8 +57,7 @@ class AttributeFactoryTest extends TestCase
             ->method('createNew')
             ->willReturn($untypedAttribute);
 
-        $attributeFactory = new AttributeFactory($this->factory, $this->attributeTypesRegistry);
-        self::assertSame($untypedAttribute, $attributeFactory->createNew());
+        self::assertSame($untypedAttribute, $this->attributeFactory->createNew());
     }
 
     public function testCanCreatesTypedAttribute(): void
@@ -87,8 +85,6 @@ class AttributeFactoryTest extends TestCase
             ->method('setStorageType')
             ->with('datetime');
 
-        $attributeFactory = new AttributeFactory($this->factory, $this->attributeTypesRegistry);
-
-        self::assertSame($typedAttribute, $attributeFactory->createTyped('datetime'));
+        self::assertSame($typedAttribute, $this->attributeFactory->createTyped('datetime'));
     }
 }

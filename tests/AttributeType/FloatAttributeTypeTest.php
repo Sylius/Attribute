@@ -81,31 +81,20 @@ class FloatAttributeTypeTest extends TestCase
             ->willReturn($constraintViolationList);
 
         $constraintViolationList->expects(self::once())->method('rewind');
-
         $constraintViolationList->expects(self::exactly(2))
             ->method('valid')
             ->willReturnOnConsecutiveCalls(true, false);
-
-        $constraintViolationList->expects(self::once())
-            ->method('current')
-            ->willReturn($constraintViolation);
-
+        $constraintViolationList->expects(self::once())->method('current')->willReturn($constraintViolation);
         $constraintViolationList->expects(self::once())->method('next');
-
-        $constraintViolation->expects(self::once())
-            ->method('getMessage')
-            ->willReturn('error message');
-
+        $constraintViolation->expects(self::once())->method('getMessage')->willReturn('error message');
         $context->expects(self::once())
             ->method('buildViolation')
             ->with('error message')
             ->willReturn($constraintViolationBuilder);
-
         $constraintViolationBuilder->expects(self::once())
             ->method('atPath')
             ->with('value')
             ->willReturn($constraintViolationBuilder);
-
         $constraintViolationBuilder->expects(self::once())->method('addViolation');
 
         $this->type->validate($attributeValue, $context, ['required' => true]);

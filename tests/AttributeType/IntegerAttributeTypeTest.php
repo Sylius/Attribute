@@ -65,9 +65,7 @@ class IntegerAttributeTypeTest extends TestCase
 
         $attributeValue->expects(self::once())->method('getValue')->willReturn(null);
 
-        $context->expects(self::once())
-            ->method('getValidator')
-            ->willReturn($validator);
+        $context->expects(self::once())->method('getValidator')->willReturn($validator);
 
         $validator->expects(self::once())
             ->method('validate')
@@ -87,27 +85,17 @@ class IntegerAttributeTypeTest extends TestCase
         $constraintViolationList->expects(self::exactly(2))
             ->method('valid')
             ->willReturnOnConsecutiveCalls(true, false);
-
-        $constraintViolationList->expects(self::once())
-            ->method('current')
-            ->willReturn($constraintViolation);
-
+        $constraintViolationList->expects(self::once())->method('current')->willReturn($constraintViolation);
         $constraintViolationList->expects(self::once())->method('next');
-
-        $constraintViolation->expects(self::once())
-            ->method('getMessage')
-            ->willReturn('error message');
-
+        $constraintViolation->expects(self::once())->method('getMessage')->willReturn('error message');
         $context->expects(self::once())
             ->method('buildViolation')
             ->with('error message')
             ->willReturn($constraintViolationBuilder);
-
         $constraintViolationBuilder->expects(self::once())
             ->method('atPath')
             ->with('value')
             ->willReturn($constraintViolationBuilder);
-
         $constraintViolationBuilder->expects(self::once())->method('addViolation');
 
         $this->type->validate($attributeValue, $context, ['required' => true]);

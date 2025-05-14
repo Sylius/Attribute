@@ -43,7 +43,7 @@ class AttributeValueTest extends TestCase
         self::assertNull($this->attributeValue->getId());
     }
 
-    public function testShouldDoesNotBelongToASubjectByDefault(): void
+    public function testDoesNotBelongToASubjectByDefault(): void
     {
         self::assertNull($this->attributeValue->getSubject());
     }
