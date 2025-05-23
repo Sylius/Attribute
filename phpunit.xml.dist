@@ -9,7 +9,7 @@
     </php>
 
     <testsuites>
-        <testsuite name="sylius_attribute_component_test_suite">
+        <testsuite name="sylius-attribute-component">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>
